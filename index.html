@@ -1,1 +1,107 @@
 
+<!--制作图片轮播效果-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.mainBox {
+				border: 1px solid red;
+				width: 1080px;
+				height: 1000px;
+				margin: 0px auto;
+			}
+			.bannerBox {
+				position: relative;
+			}
+			.bannerBox .btnBox {
+				/*border: 1px solid red;*/
+				position: absolute;
+				right: 5px;
+				bottom: 10px;
+				background: linear-gradient(to right, orange, green);
+				padding-left: 5px;
+			}
+			.btnBox span {
+				color: white;
+				margin-right: 5px;
+				/*border: 1px solid red;*/
+				padding: 2px 5px;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div class="mainBox">
+			<div class="bannerBox">
+				<!--轮播图片-->
+				<div class="imgBox">
+					<img src="http://127.0.0.1:8020/Test/img/banner/banner1.jpg" id="banner1"  width="1080"/>
+				</div>
+				<!--图片中的按钮-->
+				<div class="btnBox">
+					<span id="btn1" onmouseover = showBannerById(1) onmouseout = mouseLeave()>1</span>
+					<span id="btn2" onmouseover = showBannerById(2) onmouseout = mouseLeave()>2</span>
+					<span id="btn3" onmouseover = showBannerById(3) onmouseout = mouseLeave()>3</span>
+					<span id="btn4" onmouseover = showBannerById(4) onmouseout = mouseLeave()>4</span>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+//			var btn1 = document.getElementById("btn1");
+//			var btn2 = document.getElementById("btn2");
+//			var btn3 = document.getElementById("btn3");
+//			var btn4 = document.getElementById("btn4");
+			
+			//新建数组存放图片路径
+			var arrImg = new Array;
+			arrImg[0] = "http://127.0.0.1:8020/Test/img/banner/banner1.jpg";
+			arrImg[1] = "http://127.0.0.1:8020/Test/img/banner/banner2.jpg";
+			arrImg[2] = "http://127.0.0.1:8020/Test/img/banner/banner3.jpg";
+			arrImg[3] = "http://127.0.0.1:8020/Test/img/banner/banner4.jpg";
+			
+			var time = 2000; /*重复执行函数延时时间为2秒*/
+			var count = 0;
+			
+			//实现图片的自动播放效果
+			function autoPlay() {
+				if(arrImg.length == count) {
+					count = 0;
+				}
+				document.getElementById("banner1").src = arrImg[count];
+				count++;
+			}
+			//设置定时器重复执行函数
+			var Timer = setInterval(autoPlay, time);
+			//清除定时器对象
+			function clearTimer() {
+				clearInterval(Timer);
+			}
+			
+			//鼠标悬停在按钮上时播放对应的图片
+			function showBannerById(num) {
+				clearTimer(); /*首先调用函数清除自动播放调用*/
+				var index = parseInt(num);
+				
+				document.getElementById("banner1").src = arrImg[index - 1];
+				count = index;
+			}
+//			btn1.onmouseover = showBannerById(1);
+//			btn2.onmouseover = showBannerById(2);
+//			btn3.onmouseover = showBannerById(3);
+//			btn4.onmouseover = showBannerById(4);
+			
+			//鼠标离开后恢复自动播放状态
+			function mouseLeave() {
+				Timer = setInterval(autoPlay, time);
+			}
+//			btn1.onmouseout = mouseLeave();
+//			btn2.onmouseout = mouseLeave();
+//			btn3.onmouseout = mouseLeave();
+//			btn4.onmouseout = mouseLeave();
+			
+		</script>
+	</body>
+</html>
